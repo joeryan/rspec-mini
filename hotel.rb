@@ -2,6 +2,7 @@ require 'rspec'
 
 class Hotel
   attr_accessor :guests
+  attr_accessor :occupied_rooms
 
   def initialize
     @guests = []
@@ -18,8 +19,9 @@ class Hotel
     end
   end
 
-  def check_out_guest(guest_name)
+  def check_out_guest(guest_name, room_number)
     @guests.delete(guest_name)
+    @occupied_rooms.delete(room_number)
   end
 end
 
@@ -51,10 +53,18 @@ describe Hotel do
       end
     end
   end
- 
-  it 'can check out a guest' do
-    @hotel.check_in_guest('George Orwell', 306)
-    @hotel.check_out_guest('George Orwell')
-    expect(@hotel.guests).not_to include 'George Orwell'
+
+  describe 'checking out a guest' do
+    it 'can check out a guest' do
+      @hotel.check_in_guest('George Orwell', 306)
+      @hotel.check_out_guest('George Orwell', 306)
+      expect(@hotel.guests).not_to include 'George Orwell'
+    end
+
+    it 'makes the room available again' do
+      @hotel.check_in_guest('George Orwell', 306)
+      @hotel.check_out_guest('George Orwell', 306)
+      expect(@hotel.occupied_rooms).not_to include 306
+    end
   end
 end
