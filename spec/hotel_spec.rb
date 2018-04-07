@@ -33,13 +33,13 @@ describe Hotel do
   describe 'checking out a guest' do
     it 'can check out a guest' do
       @hotel.check_in_guest('George Orwell', 306)
-      @hotel.check_out_guest('George Orwell', 306)
+      @hotel.check_out_guest('George Orwell')
       expect(@hotel.guests).not_to include 'George Orwell'
     end
 
     it 'makes the room available again' do
       @hotel.check_in_guest('George Orwell', 306)
-      @hotel.check_out_guest('George Orwell', 306)
+      @hotel.check_out_guest('George Orwell')
       expect(@hotel.occupied_rooms).not_to include 306
     end
   end

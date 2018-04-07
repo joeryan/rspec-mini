@@ -1,25 +1,28 @@
 class Hotel
-  attr_accessor :guests
-  attr_accessor :occupied_rooms
 
   def initialize
-    @guests = []
-    @occupied_rooms = []
+    @guests = {}
   end
 
   def check_in_guest(guest_name, room_number)
-    if @occupied_rooms.include?(room_number)
+    if @guests.include?(room_number)
       return false
     else
-      @occupied_rooms << room_number
-      @guests << guest_name
+      @guests[room_number] = guest_name
       return true
     end
   end
 
-  def check_out_guest(guest_name, room_number)
-    @guests.delete(guest_name)
-    @occupied_rooms.delete(room_number)
+  def check_out_guest(guest_name)
+    @guests.delete(@guests.key(guest_name))
+  end
+
+  def occupied_rooms()
+    @guests.keys
+  end
+
+  def guests()
+    @guests.values
   end
 end
 
